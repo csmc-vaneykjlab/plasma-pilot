@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="pwdt">
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body ng-controller="mainController">
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>PlasmaPilot</h1>
+    <p>PlasmaPilot is based on experimentally defined, bottom-up human plasma proteomics.</p>
+    <p>Our goal is provide a prospective sample preparation guide for the quantitative MS-based analysis of a list of 757 plasma proteins.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <h3>Contact Us</h3>
+      <p><strong>Vidya Venkatraman</strong></label></p>
+      <p>Bioinformatics Lead<br>
+      Advanced Clinical Biosystems Research Institute<br>
+      Cedars-Sinai Medical Center<br>
+      vidya.venkatraman@cshs.org</p>
+      <p>Visit our <a href="https://www.cedars-sinai.edu/Research/Research-Labs/Van-Eyk-Lab/">website</a></p>
+      <h3>Citation</h3>
+      <p>Zhang, Shenyan., et al. "A dual workflow to improve the proteomic coverage in plasma using data-independent acquisition-MS." <i>Manuscript Submitted (2019).</i></p>
+      <br>
+    </div>
+    <div class="col-md-7">
+      <h3>Getting Started</h3>
+      <p>When designing a DIA-MS-based acquisition technique, we are always faced with this question: "To deplete or not to deplete?" Although leaving a sample undepleted is more time and cost efficient, it is also important to consider the goal of our acquisition technique. PlasmaPilot is designed to help answer this question, by providing a prospective sample preparation guide for the quantitative MS-based analysis of a list of 757* plasma proteins based on experimentally defined, bottom-up human plasma proteomics. The appropriate plasma sample preparation technique is recommended based on the protein of interest and degree of detection/quantitation.</p>
+      <p>To use PlasmaPilot to determine whether or not to deplete your sample, simply go to the <a href="/"><strong>Home</strong></a> page and enter the protein or proteins of interest in the text box. The query list can contain uniprot IDs or gene names (separated by new line or comma). Then, select your analytical requirement, and click on the submit button.</p>
+      <p><strong>Identified: </strong>Specifies the plasma analysis techniques that can be used to identify the query protein.</P>
+      <p><strong>Quantified: </strong>Specifies the plasma analysis techniques that can be used to quantify the query protein.</P>
+      <p><strong>Linear Range: </strong>Specifies the plasma analysis techniques that provide good linear range for the query protein.</P>
+      <h3>Viewing Results</h3>
+      <p>Once the analysis is complete, the results will automatically display under the text box. As part of the analysis results, we provide the observed protein detection summary table and visualize them in the Distribution bar chart and Recommendation pie chart based on the mode selected. </p>
+      <p>The Distribution bar chart provides a better understanding of the overall detection distribution based on the mode selected. Each queried protein is compared to the rest of the plasma proteins by highlighting it in its corresponding bin based on the analysis techniques that are appropriate for the specified degree of detection.</p>
+      <p>The Recommendation pie chart allows the user to visualize the proportion of query proteins that fall in each detection method based on the mode selected and can be used as a tool to infer which detection method should be used.</p>
+      <p>Recommendations are made based on the degree of detection achieved in depleted and undepleted samples. For each degree of detection, if the detection was achieved for the specified protein in only undepleted samples, the sample is recommended to be kept undepleted. If the detection was achieved in only depleted samples, the recommended analysis technique is depletion. If the degree of detection was achieved in both depleted and undepleted samples, both preparation techniques are recommended for the protein. If the degree of detection was not achieved in either depleted or undepleted samples, no recommendation can be made for the protein for that specific degree of detection and is indicated by 'N/A'.</p>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="javascripts/app.js"></script>
+</body>
+</html>

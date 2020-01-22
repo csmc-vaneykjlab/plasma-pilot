@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html ng-app="pwdt">
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body ng-controller="mainController">
+
+  <% include ../partials/nav.ejs %>
+
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1>PlasmaPilot</h1>
+      <p>PlasmaPilot is based on experimentally defined, bottom-up human plasma proteomics.</p>
+      <p>Our goal is provide a prospective sample preparation guide for the quantitative MS-based analysis of a list of 757 plasma proteins.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <h3 style="text-align:center">14 High Abundant Plasma Proteins</h3>
+    <p id="abundant-text">PlasmaPilot was experimentally developed using an Seppro® IgY14 depletion column (Sigma-Aldrich), and the results of the depletion workflow may not be compatible with alternative depletion strategies. This IgY-14 column targets 14 high abundant plasma proteins so PlasmaPilot does not provide results for these 14 proteins, which all can be quantified in undepleted plasma. The proteins are listed below.</p>
+    <br>
+     <table id="abundant" class="table table-bordered table-striped">
+        <thread>
+          <tr>
+            <th scope="col">Protein Name</th>
+            <th scope="col">Uniprot ID</th>
+            <th scope="col">Gene Name</th>
+          </tr>
+        </thread>
+        <tbody>
+          <tr>
+            <td><strong>Albumin</strong></td>
+            <td>P02768</td>
+            <td>ALB</td>
+          </tr>
+          <tr>
+            <td><strong>Fibrinogen</strong></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><i>&emsp;alpha chain</i></td>
+            <td>P02671</td>
+            <td>FGA</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;beta chain</i></td>
+            <td>P02675</td>
+            <td>FGB</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;gamma chain</i></td>
+            <td>P02679</td>
+            <td>FGG</td>
+          </tr>
+          <tr>
+            <td><strong>Haptoglobin</strong></td>
+            <td>P00738</td>
+            <td>HP</td>
+          </tr>
+          <tr>
+            <td><strong>Transferrin</strong></td>
+            <td>P02787</td>
+            <td>TF</td>
+          </tr>
+          <tr>
+            <td><strong>Apolipoprotein A1</strong></td>
+            <td>P02647</td>
+            <td>APOA1</td>
+          </tr>
+          <tr>
+            <td><strong>Apolipoprotein A2</strong></td>
+            <td>P02652</td>
+            <td>APOA2</td>
+          </tr>
+          <tr>
+            <td><strong>Apolipoprotein B-100</strong></td>
+            <td>P04114</td>
+            <td>APOB</td>
+          </tr>
+          <tr>
+            <td><strong>α-1-Antitrypsin</strong></td>
+            <td>P01009</td>
+            <td>SERPINA1</td>
+          </tr>
+          <tr>
+            <td><strong>α-2-Macroglobulin</strong></td>
+            <td>P01023</td>
+            <td>A2M</td>
+          </tr>
+          <tr>
+            <td><strong>α-1-Acid glycoprotein</strong></td>
+            <td>P02763</td>
+            <td>ORM1</td>
+          </tr>
+          <tr>
+            <td><strong>Complement C3</strong></td>
+            <td>P01024</td>
+            <td>C3</td>
+          </tr>
+          <tr>
+            <td><strong>Ig mu chain C region</strong></td>
+            <td>P01871</td>
+            <td>ALB</td>
+          </tr>
+          <tr>
+            <td><strong>Ig gamma chain</strong></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig gamma-1 chain C region</i></td>
+            <td>P01857</td>
+            <td>IgHG1</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig gamma-2 chain C region</i></td>
+            <td>P01859</td>
+            <td>IgHG2</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig gamma-3 chain C region</i></td>
+            <td>P01860</td>
+            <td>IgHG3</td>
+          </tr>
+          <tr>
+            <td><strong>Ig delta chain</strong></td>
+            <td>P01880</td>
+            <td>IgHD</td>
+          </tr>
+          <tr>
+            <td><strong>Ig epsilon chain C region</strong></td>
+            <td>P01854</td>
+            <td>IgHE</td>
+          </tr>
+          <tr>
+            <td><strong>Ig alpha chain</strong></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig alpha-1 chain</i></td>
+            <td>P01876</td>
+            <td>IgHA1</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig alpha-2 chain</i></td>
+            <td>P01877</td>
+            <td>IgHA2</td>
+          </tr>
+          <tr>
+            <td><strong>Ig free light chains kappa and lambda</strong></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–III region VH</i></td>
+            <td>P04434</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–I region Wes</i></td>
+            <td>P01611</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–I region CAR</i></td>
+            <td>P01596</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–III region SIE</i></td>
+            <td>P01620</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–IV region Len</i></td>
+            <td>P01625</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–I region AG</i></td>
+            <td>P01593</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–I region EU</i></td>
+            <td>P01598</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain V–III region WOL</i></td>
+            <td>P01623</td>
+            <td>IgKC</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig kappa chain C region</i></td>
+            <td>P01834</td>
+            <td>IgLC2</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig lambda-2 chain C regions</i></td>
+            <td>P0CG05</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig lambda chain V–III region LOI</i></td>
+            <td>P80748</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig lambda chain V–III region SH</i></td>
+            <td>P01714</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><i>&emsp;Ig lambda chain V–IV region Hil</i></td>
+            <td>P01717</td>
+            <td>–</td>
+          </tr>
+
+        </tbody>
+      </table>
+    <br>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="javascripts/app.js"></script>
+</body>
+</html>

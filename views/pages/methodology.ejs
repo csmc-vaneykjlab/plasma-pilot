@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="pwdt">
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body ng-controller="mainController">
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>PlasmaPilot</h1>
+    <p>PlasmaPilot is based on experimentally defined, bottom-up human plasma proteomics.</p>
+    <p>Our goal is provide a prospective sample preparation guide for the quantitative MS-based analysis of a list of 757 plasma proteins.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <h3>Methodology</h3>
+    		<p>Our work sought to address these questions by systematically optimizing and defining the preparative and DIA-MS-based acquisition parameters that maximize proteome coverage and quantitative accuracy from depleted- and undepleted plasma aliquots, respectively. We incorporated these optimized protocols to establish a parallel dual workflow strategy in which samples are divided into two aliquots: the first aliquot was shunted to IgY14-based depletion and desalting to target less-abundant candidates that minimally interact with high abundance matrix proteins; the second aliquot remained undepleted to preserve the quantitative accuracy among candidates that more extensively interact with high-abundance matrix proteins (such as albumins).</p>
+        <p>Both depleted and undepleted aliquots were subject to DIA-MS analysis to maximize the proteomic coverage of a single sample. Finally, we systematically defined four major quantitative parameters of each observed protein (linearity cutoff r<sup>2</sup>>0.8; LLOQ, HLOQ-quantitative range; LLOD) and built a decision tree encompassing over 600 plasma proteins. Thus, our optimized dual workflow and its ensuing decision tree can serve as an important guide for the targeted quantitative analysis of specific protein subsets, or of broader discovery-based proteomic studies.</p>
+      <label>Note:</label>
+        <p>a) PlasmaPilot was experimentally developed using an Seppro® IgY14 depletion column (Sigma-Aldrich), and the result of depletion workflow may not be compatible with alternative depletion strategies</p>
+        <p>b) This IgY-14 column targets <a href="/abundant">14 high abundant plasma proteins</a>, so this tool does not provide results for those 14 proteins which all can be quantified in undepleted plasma.</p>
+      <br>
+    </div>
+    <div class="col-md-7">
+      <h3 style="text-align:center">PlasmaPilot Decision Tree Based on Dual Workflow Result</h3>
+      <br>
+      <img src="/PlasmaPilot.png" width=100% height=auto>
+      <br>
+      <br>
+      <div class="subtitles">
+      <p><sup>1</sup> Identifiable proteins were detected by Dual workflow(DIA-MS) with FDR&#60;1% calculated by OpenSWATH.</p>
+      <p><sup>2</sup> Quantifiable proteins were detected by Dual workflow(DIA-MS) with a defined LOQ (observed in at least 2 out of 3 replicates with CV&#60;20%).</p>
+      <p><sup>3</sup> Proteins with good linearity have Rsq>0.8 across a minimum of 3 concentration points.</p>
+      <p><sup>4</sup> Proteins are segregated according to the workflow that yields the widest linear range.</p>
+      <p><sup>5</sup> PlasmaPilot recommends “both" for proteins with results that are equivalent between depletion- and undepletion- strategies. The final decision is left to user discretion.</p>
+      <p><sup>6</sup> One protein (Q04917)  has no recommended workflow because depletion and undepletion strategies yield linear ranges that are equivalent in magnitude, spanning different quantitative regions.</p>
+      </div>
+
+      <br>
+      <br>
+   	</div>
+  </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="javascripts/app.js"></script>
+</body>
+</html>

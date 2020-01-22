@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="pwdt">
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body ng-controller="mainController">
+
+  <% include ../partials/nav.ejs %>
+
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1>PlasmaPilot</h1>
+      <p>PlasmaPilot is based on experimentally defined, bottom-up human plasma proteomics.</p>
+      <p>Our goal is provide a prospective sample preparation guide for the quantitative MS-based analysis of a list of 757 plasma proteins.</p>
+    </div>
+  </div>
+
+  <div class="container">
+        <h3>About<img class="center" style="float: right; margin: 40px 0px 40px 20px;" src="/about_img.jpg" width=47% height=auto/></h3>
+        <p>The plasma component of blood has long been used as the most important biofluid for diagnostic and prognostic clinical analyses. Every tissue ultimately interacts with plasma, which is readily available and easily sampled. Thus, by detecting and quantitatively analyzing the appropriate target, plasma can serve as an individualized window into physiology. Plasma is a complex biochemical matrix whose proteome spans a dynamic range more than 10 orders of magnitude in which the ten most abundant proteins account for 90% of its total protein mass. This broad and lopsided dynamic range of proteins within plasma can render the physiological window opaque to discovery-based analyses of less abundant proteins, which in turn can hinder new candidate biomarker discovery and clinical translation.</p>
+        <p>Depletion strategies are important components of discovery workflows because they address the mass imbalance and broad dynamic range inherent to plasma. The absence of depletion inherently simplifies sample preparation and decreases the introduction of variance and error. Nevertheless, relative to the analysis of undepleted plasma samples, depletion serves as an additional lens through which large numbers of less abundant and complementary plasma proteins can be revealed by MS.</p>
+        <p>The advent of Data Independent Acquisition (DIA) has enabled the simultaneous quantitative analysis of hundreds of proteins in plasma samples in support population and disease studies and endowed MS-based discovery workflows with improved quantitative accuracy and reproducibility. While the value of depletion to proteomic coverage of low abundant targets extends to DIA-MS, its inclusion or exclusion yields samples with distinct biochemical matrices and altered protein compositions. Furthermore, the cumulative effects of depletion efficiency, specificity, and indiscriminate protein loss are assumed to be unequal across the proteome and several fundamental questions remain unaddressed. Specifically, to what extent does plasma depletion influence protein quantitation? What are the identities of the proteins whose quantitation is benefited or hindered by depletion? What are the combined advantages of analyzing both undepleted and depleted fractions of the same sample?</p>
+        <br>
+  </div>
+     
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="javascripts/app.js"></script>
+</body>
+</html>

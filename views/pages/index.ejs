@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html ng-app="pwdt">
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body ng-controller="mainController">
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>PlasmaPilot</h1>
+    <p>PlasmaPilot is based on experimentally defined, bottom-up human plasma proteomics.</p>
+    <p>Our goal is provide a prospective sample preparation guide for the quantitative MS-based analysis of a list of 757 plasma proteins.</p>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="form">
+        <form class="ng-cloak" name="queryForm">
+          <div class="form-group">
+            <label>Enter Uniprot ID or Gene Name of Proteins:</label>
+            <textarea class="form-control" placeholder="ex: Q53GG5, GSTP1" rows="3" ng-model="proteinData.text"></textarea>
+          </div>
+          <label>Select Analytical Requirement:</label>
+          <br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" ng-model="specificity.text" value="identified" ng-click="updateChart(specificity.text)" ng-checked="specificity.text === 'identified'">
+            <span class="form-check-label">
+              Identifiable
+            </span>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" ng-model="specificity.text" value="quantified" ng-click="updateChart(specificity.text)" ng-checked="specificity.text === 'quantified'">
+            <span class="form-check-label">
+              Quantifiable
+            </span>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" ng-model="specificity.text" value="good_linearity" ng-click="updateChart(specificity.text)" ng-checked="specificity.text === 'good_linearity'">
+            <span class="form-check-label">
+              Linearity (r&sup2; > 0.8)
+            </span>
+          </div>
+          <button class="btn btn-danger float-right" type="submit" ng-click="query()">Submit</button>
+        </form>
+      </div>
+      <br>
+      <div class="list">
+        <label class="ng-cloak" ng-show="exceptData.length > 0">Proteins not in database: </label>
+        <label class="ng-cloak" ng-show="exceptData.length > 0" ng-repeat="except in exceptData">&nbsp;{{ except.unnest }}{{$last ? '' : ','}}</label>
+      </div>
+      <br ng-show="exceptData.length > 0">
+      <div class="ng-cloak" ng-show="queryData.length == 0">
+        <h3>Getting Started</h3>
+        <p> 1. Enter the <strong>Uniprot ID</strong> or <strong>Gene Name</strong> of the proteins of interest into the form field, separated by a space, new line, comma, or semicolon <br>
+          &emsp;&emsp;- For example: Q53GG5, GSTP1 <br>
+          2. Select the <strong>Analytical Requirement</strong> for the protein analysis <br>
+          3. Click the <strong>Submit</strong> button <br>
+          4. The results of the proteins of interest are overlayed on the <strong>Plasma Workflow Distribution</strong> chart, which is a static view of the database<p>
+        <p> For more information, please navigate to the <a href="/help"><strong>Help</strong></a> page </p>
+      </div>
+      <label ng-cloak ng-show="queryData.length > 0">Analysis Results</label>
+      <form class="form-inline">
+        <div class="form-group-inline">
+          <span ng-cloak ng-show="queryData.length > 0">Search</span>
+          <input ng-cloak ng-show="queryData.length > 0" type="text" ng-model="search" class="form-control" placeholder="Search">
+
+          <span id="items" ng-cloak ng-show="queryData.length > 0">Items Per Page</span>
+          <div class="btn-group">
+            <button id="pagination" ng-cloak ng-show="queryData.length > 0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-model="p">
+               {{p}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="pagination">
+              <li><a ng-click="updatePageSize('5')">5</a></li>
+              <li><a ng-click="updatePageSize('10')">10</a></li>
+              <li><a ng-click="updatePageSize('50')">50</a></li>
+              <li><a ng-click="updatePageSize('100')">100</a></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+
+      <table ng-cloak id="example" class="table table-bordered table-striped" ng-show="queryData.length > 0">
+        <thread>
+          <tr>
+            <th scope="col">Uniprot ID</th>
+            <th scope="col">Gene Name</th>
+            <th scope="col">Protein Name</th>
+            <th scope="col">{{specificity.text=='good_linearity' ? 'Linearity (r\u00B2> 0.8)' : specificity.text.charAt(0).toUpperCase() + specificity.text.slice(1, 8) + 'able'}}</th>
+          </tr>
+        </thread>
+        <tbody>
+          <tr dir-paginate="query in results[specificity.text]|filter:search|itemsPerPage:p" pagination-id="results">
+            <td class="ng-cloak"> <a id="query" href="#protein" ng-click='peptide(query.idx)'>{{ query.swiss_prot_id }}</td>
+            <td class="ng-cloak">{{ query.gene_name }}</td>
+            <td class="ng-cloak">{{ query.protein_name }}</td>
+            <td class="ng-cloak">{{ query.specificity }}</td>
+            </tr>
+        </tbody>
+      </table>
+      <div>
+        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="results"></dir-pagination-controls>
+        <button border-radius: 2px; type="button" ng-cloak ng-show="queryData.length > 0" ng-click="export()" id="exportButton" class="btn btn-primary clearfix float-right text-right"><span class="fa fa-file-excel-o"></span>Export</button>
+        <br ng-cloak ng-show="queryData.length > 0 && queryData.length > itemsPerPage" >
+        <br ng-cloak ng-show="queryData.length > 0 && queryData.length > itemsPerPage" >
+        <br ng-cloak ng-show="queryData.length > 0 && queryData.length > itemsPerPage" >
+      </div>
+
+      <!-- Hidden table to be exported -->
+      <table hidden id="export" class="table table-bordered table-striped">
+        <thread>
+          <tr>
+            <th scope="col">Uniprot ID</th>
+            <th scope="col">Gene Name</th>
+            <th scope="col">Protein Name</th>
+            <th scope="col">{{specificity.text=='good_linearity' ? 'Linearity (r\u00B2> 0.8)' : specificity.text.charAt(0).toUpperCase() + specificity.text.slice(1, 8) + 'able'}}</th>
+          </tr>
+        </thread>
+        <tbody>
+          <tr ng-repeat="query in results[specificity.text]|filter:search">
+            <td>&nbsp;{{ query.swiss_prot_id }}</td>
+            <td>&nbsp;{{ query.gene_name }}</td>
+            <td>&nbsp;{{ query.protein_name }}</td>
+            <td>&nbsp;{{ query.specificity }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="col-lg-7">
+      <div id="protein" class="collapse">
+        <div class="card card-body">
+        <a href="#" class="close text-right" id="protein-info" role="button" aria-label="Close" data-target="#protein" data-toggle="collapse">&times;</a>
+          
+          <div class="protein">
+            <span class="header" ng-cloak ng-show="currProtein != null">Protein Name |</span><label ng-cloak ng-show="currProtein != null">{{currProtein.protein_name}}</label><br ng-cloak ng-show="currProtein != null">
+          </div><div class="protein">
+            <span class="header" ng-cloak ng-show="currProtein != null">Short Protein Name |</span><label ng-cloak ng-show="currProtein != null">{{ currProtein.entry_name}}</label><br ng-cloak ng-show="currProtein != null">
+            <span class="header" ng-cloak ng-show="currProtein != null">Gene Name |</span><label ng-cloak ng-show="currProtein != null">{{ currProtein.gene_name}}</label><br ng-cloak ng-show="currProtein != null">
+            <span class="header" ng-cloak ng-show="currProtein != null">Uniprot ID |</span><label ng-cloak ng-show="currProtein != null">{{ currProtein.swiss_prot_id}}</label><br ng-cloak ng-show="currProtein != null">
+            <span class="header" ng-cloak ng-show="currProtein != null">Length |</span><label ng-cloak ng-show="currProtein != null">{{ currProtein.length + ' amino acids '}}</label><br ng-cloak ng-show="currProtein != null">
+            <span class="header" ng-cloak ng-show="currProtein != null">Coverage |</span><label ng-cloak ng-show="currProtein != null">{{ currProtein.coverage + '%'}}</label><br ng-cloak ng-show="currProtein != null">
+            <br>
+            <div class="sequence">
+            <label ng-cloak ng-show="currProtein != null">Sequence</label><br>
+            <p ng-cloak ng-show="currProtein != null" ng-bind-html="currProtein.formatted"></p>
+            <dl>
+                <dt style='background:#FFee00;'></dt>
+                <dd> Peptide </dd>
+                <dt style='background:#78D738;'></dt>
+                <dd> Modification </dd>
+            </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-7">
+          <div class="demo-container" ng-app="pwdt" ng-controller="chartController">
+            <div id="chart" dx-chart="chartOptions"></div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="demo-container" ng-app="pwdt" ng-controller="pieController">
+            <div id="pie" dx-pie-chart="chartOptions"></div>
+            <br>
+          </div>
+        </div>
+      </div>
+      <br>
+      <p class="ng-cloak" >The Distribution bar chart displays the proportion of query proteins overlayed against the total proteins in our database for each analytical requirement. The Recommendation pie chart displays the proportion of query proteins in each detection method based on the selected analytical requirement.
+
+       <a class="nav-item nav-link dropdown-toggle float-right" href="#collapse-panel" id="more-info" data-toggle="collapse" aria-expanded="false">
+      </a>
+      </p> 
+      <div class="collapse" id="collapse-panel">
+
+        <p>
+          &emsp;&emsp;- <strong>Undepleted</strong>: The protein is seen only when the sample is undepleted<br>
+          &emsp;&emsp;- <strong>Depleted</strong>: The protein is seen only when the sample is depleted<br>
+          &emsp;&emsp;- <strong>Both</strong>: The protein can be seen in both undepleted and depleted samples<br>
+          &emsp;&emsp;- <strong>N/A</strong>: The protein cannot be seen in either undepleted nor depleted samples</p>
+      </div>
+
+
+<!--       <p>
+        &emsp;&emsp;- <strong>Undepleted</strong>: The protein is seen only when the sample is undepleted<br>
+        &emsp;&emsp;- <strong>Depleted</strong>: The protein is seen only when the sample is depleted<br>
+        &emsp;&emsp;- <strong>Both</strong>: The protein can be seen in both undepleted and depleted samples<br>
+        &emsp;&emsp;- <strong>N/A</strong>: The protein cannot be seen in either undepleted nor depleted samples</p>
+      <p>
+        Proteins with good linear range in both undepleted and depleted samples are further compared to determine which sample preparation has a broader linear range. The results are displayed in the Broader Linear Range group to provide a more accurate recommendation.
+      </p> -->
+    </div>
+  </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+<script src="javascripts/app.js"></script>
+<script>$('.toggle-icon').click(function(){
+var IconToToggle = $(this).find('.icon-toggle');
+if (IconToToggle.hasClass('glyphicon-triangle-bottom')) {
+IconToToggle.removeClass('glyphicon-triangle-bottom').addClass('glyphicon-triangle-top');
+} else {
+IconToToggle.removeClass('glyphicon-triangle-top').addClass('glyphicon-triangle-bottom');
+}
+})
+</script>
+</body>
+</html>
