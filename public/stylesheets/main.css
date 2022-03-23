@@ -337,3 +337,8 @@ a:active {
 #more-info, #protein-info {
   color:black;
 }
+.grayout {
+filter:alpha(opacity=50);
+opacity:0.5;
+-moz-opacity:0.50;
+}

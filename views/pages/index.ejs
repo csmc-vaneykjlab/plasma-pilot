@@ -13,7 +13,7 @@
     <h1>PlasmaPilot</h1>
     <p>PlasmaPilot is based on experimentally defined, bottom-up human plasma proteomics.</p>
     <p>Our goal is provide a prospective sample preparation guide for the quantitative MS-based analysis of a list of 757 plasma proteins.</p>
-    <p>NOTICE (March 2022) --> This software is currently being upgraded and moved to a new hosting environment.  Functionality may be impacted.   </p>
+    <p><b>SPECIAL NOTE (March 2022) </b> --> This software is being transitioned to a new hosting environment.  Functionality may be impacted.   </p>
   </div>
 </div>
 <div>
@@ -28,10 +28,10 @@
   <div class="row">
     <div class="col-lg-5">
       <div class="form">
-        <form class="ng-cloak" name="queryForm">
+        <form class="ng-cloak grayout" name="queryForm">
           <div class="form-group">
             <label>Enter Uniprot ID or Gene Name of Proteins:</label>
-            <textarea class="form-control" placeholder="ex: Q53GG5, GSTP1" rows="3" ng-model="proteinData.text"></textarea>
+            <textarea class="form-control" placeholder="ex: Q53GG5, GSTP1" rows="3" ng-model="proteinData.text" disable="true"></textarea>
           </div>
           <label>Select Analytical Requirement:</label>
           <br>
@@ -53,7 +53,7 @@
               Linearity (r&sup2; > 0.8)
             </span>
           </div>
-          <button class="btn btn-danger float-right" type="submit" ng-click="query()">Submit</button>
+          <button class="btn btn-danger float-right" type="submit" ng-click="query()" disabled="true">Submit</button>
         </form>
       </div>
       <br>
