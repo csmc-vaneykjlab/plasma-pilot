@@ -6,7 +6,7 @@ const routes = require('./server/routes/index');
 
 // set port
 const PORT = process.env.PORT || 5000
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/todo';
+const connectionString = process.env.DATABASE_URL.concat('?sslmode=require') || 'postgres://postgres:postgres@localhost:5432/todo';
 
 const app = express();
 

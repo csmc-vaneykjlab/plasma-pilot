@@ -1,5 +1,5 @@
 const pg = require('pg');
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/proteins';
+const connectionString = process.env.DATABASE_URL.concat('?sslmode=require') || 'postgres://postgres:postgres@localhost:5432/proteins';
 
 const client = new pg.Client(connectionString);
 client.connect();
